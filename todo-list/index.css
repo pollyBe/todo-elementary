@@ -1,0 +1,158 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(165, 165, 154);
+  padding: 50px 0;
+}
+
+#root {
+  width: 50%;
+  margin: auto;
+  background-color: rgb(220, 178, 178);
+  border: 3px solid black;
+  border-radius: 25px;
+}
+
+.container {
+  padding: 0 20px;
+}
+
+.inputArea {
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.deleteBtn,
+.addBtn {
+  width: 20%;
+  height: 50px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px 5px;
+  align-items: center;
+  background-color: aquamarine;
+  cursor: pointer;
+}
+
+#taskInput {
+  width: 50%;
+  height: 50px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px 5px;
+  align-items: center;
+}
+
+.taskList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.listItem {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10px;
+  margin-bottom: 30px;
+  border: 2px solid #383d5a;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5); 
+}
+
+.checkbtn {
+  width: 50px;
+  height: 30px;
+  border: 2px solid #383d5a;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: cadetblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fa-check {
+  font-size: 20px;
+  color: aquamarine;
+}
+
+.checkWrap {
+  display: flex;
+  align-items: center;
+}
+ 
+
+.taskName {
+  width: 65%;
+  height: 55px;
+  border: none;
+  border-radius: 10px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.taskName:last-child {
+  margin-bottom: 0;
+}
+
+.taskName p {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.right {
+  height: calc(100% + 30px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.btnWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: -15px;
+  margin-bottom: 10px;
+  align-self: end;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #383d5a;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: cadetblue;
+}
+
+.removeBtn {
+  border: none;
+  font-size: 20px;
+  text-align: center;
+  background-color: transparent;
+}
+
+.dateWrap {
+  width: 85px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffffff;
+  margin-bottom: -10px;
+}
+
+.dateWrap p {
+  font-size: 15px;
+}
+
