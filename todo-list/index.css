@@ -44,7 +44,7 @@ body {
   cursor: pointer;
 }
 
-#taskInput {
+#textField {
   width: 50%;
   height: 50px;
   border: 2px solid black;
@@ -60,6 +60,7 @@ body {
 }
 
 .listItem {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -116,17 +117,19 @@ body {
 }
 
 .right {
-  height: calc(100% + 30px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-left: 50px;
 }
 
 .btnWrap {
+  position: absolute;
+  right: 5px;
+  top: 5px;
   display: flex;
   justify-content: center;
-  margin-top: -15px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   align-self: end;
   width: 30px;
   height: 30px;
@@ -137,13 +140,18 @@ body {
 }
 
 .removeBtn {
+  width: 100%;
   border: none;
   font-size: 20px;
   text-align: center;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .dateWrap {
+  position: absolute;
+  bottom: 15px;
+  right: 5px;
   width: 85px;
   padding: 5px;
   border: none;
@@ -155,4 +163,3 @@ body {
 .dateWrap p {
   font-size: 15px;
 }
-
