@@ -1,3 +1,15 @@
+let todos = getTodoFromStorage();
+
+document.addEventListener("DOMContentLoaded", () => {
+  todos.forEach((todo) => {
+    createTask(todo);
+  });
+});
+
+let idCounter = 0;
+
+
+// structure
 const root = document.getElementById('root');
 
 const container = document.createElement('div');
@@ -8,6 +20,8 @@ const header = document.createElement('div');
 header.className = 'inputArea';
 container.append(header);
 
+// create button func
+
 function createButton(text, className) {
   const button = document.createElement('button');
   button.type = 'button';
@@ -16,36 +30,75 @@ function createButton(text, className) {
   return button;
 }
 
+//delete btn
+
 const deleteBtn = createButton('Delete All', 'deleteBtn');
+deleteBtn.id = "deleteBtn";
 header.append(deleteBtn);
 
-const deleteItems = () => {
-  const items = document.querySelectorAll('.listItem');
-  items.forEach(item => item.remove());
-};
+deleteBtn.addEventListener("click", () => {
+  todos = []; //
+  setTodoInStorage(todos); // []
+  //   localStorage.clear();
+  document.getElementById("todoWrap").innerHTML = "";
+});
 
-deleteBtn.addEventListener('click', deleteItems);
+// create input
 
 const input = document.createElement('input');
 input.type = 'text';
 input.value = 'Enter TODO ..';
-input.id = 'taskInput';
+input.id = 'textField';
 header.append(input);
 
 input.addEventListener("focus", () => (input.value = ''));
 
+// add btn
+
 const addBtn = createButton('Add', 'addBtn');
+addBtn.id = 'addTask';
 header.append(addBtn);
+addTask.addEventListener('click', addTodo);
+
+// task list
 
 const taskList = document.createElement('ul');
-taskList.className = 'taskList';
+taskList.id = 'todoWrap';
+
 container.append(taskList);
 
-const now = new Date();
-const dateTimeString = now.toLocaleString();
+// add todoFunc
 
+function addTodo() {
+  
+  const card = {
+      id: idCounter++,
+      text: input.value,
+      date: new Date().toLocaleDateString("ru-Ru"),
+      isChecked: false,
+  };
+    createTask(card);
+    todos.push(card);
+    setTodoInStorage(todos);
+    input.value = 'Enter TODO ..';
+}
 
-function createTask () {
+// storage
+
+function setTodoInStorage(todos) {
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function getTodoFromStorage() {
+  if (localStorage.getItem("todos")) {
+    return JSON.parse(localStorage.getItem("todos"));
+  }
+  return [];
+}
+
+// create task func
+
+function createTask (card) {
   const taskName = input.value;
   if (taskName !== '') {
     const listItem = document.createElement('li');
@@ -59,15 +112,27 @@ function createTask () {
     const check = document.createElement('button');
     check.type = 'button';
     check.className = 'checkbtn';
+    check.checked = card.isChecked;
     checkbox.append(check);
 
     const checkIcon = document.createElement('i');
     checkIcon.className = 'fa-solid fa-check';
     
     check.addEventListener('click', () => {
-      check.append(checkIcon);
-      taskNameText.style.textDecoration = 'line-through';
-      listItem.style.backgroundColor = 'rgb(117, 85, 85)';
+      if (!check.contains(checkIcon)) {
+        check.append(checkIcon);
+        taskNameText.style.textDecoration = 'line-through';
+        listItem.style.backgroundColor = 'rgb(117, 85, 85)';
+        card.isChecked = true;
+    
+      } else if (check.contains(checkIcon)) {
+        checkIcon.remove();
+        taskNameText.style.textDecoration = 'none';
+        listItem.style.backgroundColor = '';
+        card.isChecked = false;
+        
+      }
+      setTodoInStorage(todos);
     })
 
     const taskNameWrap = document.createElement('div');
@@ -75,20 +140,29 @@ function createTask () {
     listItem.append(taskNameWrap);
 
     const taskNameText = document.createElement('p');
-    const pText = document.createTextNode(taskName);
+    const pText = document.createTextNode(card.text);
     taskNameText.className = 'taskText';
     taskNameText.append(pText);
     taskNameWrap.append(taskNameText);
 
     const removeBtn = createButton('x', 'removeBtn');
+    removeBtn.id = 'close';
 
     const btnWrap = document.createElement('div');
     btnWrap.className = 'btnWrap';
     listItem.append(btnWrap);
     btnWrap.append(removeBtn);
 
+    removeBtn.addEventListener("click", (e) => {
+      if (e.target.className === "removeBtn") {
+        e.target.closest('.listItem').remove();
+      }
+    const filter = todos.filter((todo) => todo.id !== card.id);
+    setTodoInStorage(filter);
+    });
+
     const pDate = document.createElement('p');
-    const dateText = document.createTextNode(dateTimeString);
+    const dateText = document.createTextNode(card.date);
     pDate.append(dateText);
     
     const dateWrap = document.createElement('div');
@@ -101,20 +175,4 @@ function createTask () {
     right.append(btnWrap, dateWrap);
   }
 }
-addBtn.addEventListener('click', createTask);
-
-const removeItem = (e) => {
-  if (e.target.className === "removeBtn") {
-    e.target.closest('.listItem').remove();
-  }
-  // if (e.target.className === "taskText") {
-  //   input.value = e.target.outerText;
-  //   addBtn.removeEventListener("click", createTask);
-  //   addBtn.addEventListener("click", changeText(e.target));
-  // }
-};
-
-taskList.addEventListener("click", removeItem);
-
-
-// please, be gentle its my first time
+console.log(todos)
